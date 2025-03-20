@@ -57,4 +57,23 @@ log10_minor_break = function (...){
   }
 }
 
+## simple trend removal by Pichler and Bellie
+bp_transform <- function(x) {
+  rollmean <- rollmean(x,5,na.pad = TRUE)
+  perc <- (x/rollmean)*100
+  return(log(perc))
+}
+
+
+## simple trend removal following Hollstein (1980)
+
+holl_transform <- function(x){
+  one <- c(NA, x[-length(x)])
+  out <- 100 * log10(x/one)
+  
+  return(out)
+  
+  
+}
+
 
